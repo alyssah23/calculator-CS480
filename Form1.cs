@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Controls;
 
+
 namespace TestProject1
 {
     public partial class Form1 : Form
@@ -32,7 +33,7 @@ namespace TestProject1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "1";
+            textBox1.Text += "1";
             textBox1.Refresh();
         }
 
@@ -114,22 +115,24 @@ namespace TestProject1
 
         private void buttonLeftP_Click(object sender, EventArgs e)
         {
-            textBox1.Text += ")";
+             textBox1.Text += "(";
             textBox1.Refresh();
         }
 
         private void buttonRightP_Click(object sender, EventArgs e)
         {
-            textBox1.Text += "(";
+            textBox1.Text += ")";
             textBox1.Refresh();
         }
 
         private void buttonCE_Click(object sender, EventArgs e)
         {
-            textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length -1, 1);
-            textBox1.Refresh();
+            if (textBox1.Text.Length > 0)
+            {
+                textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1, 1);
+                textBox1.Refresh();
+            }
         }
-
         private void buttonC_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
@@ -138,7 +141,8 @@ namespace TestProject1
 
         private void buttonEquals_Click(object sender, EventArgs e)
         {
-            //Call processing methods
+            textBox1.Text += "=";
+            textBox1.Refresh();
         }
 
         private void buttonExpo_Click(object sender, EventArgs e)
@@ -149,8 +153,27 @@ namespace TestProject1
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
-        }      
+           if (System.Text.RegularExpressions.Regex.IsMatch(textBox1.Text, "[^0-9^+^*^^^/^(^)^.^-^=]"))
+           {
+                textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1);
+                if (textBox1.Text.Length != 0)
+                {
+                        textBox1.SelectionStart = textBox1.Text.Length;
+                        textBox1.SelectionLength = 0;
+                }
+           }
+           if (textBox1.Text.Contains('='))
+           {
+               //call method here to handle operations
+           }
+       
+        }
+        //for handling operations....
+            //check number of each parenthisis, if they dont match don't do it
+            //you can't have 2 operations next to each other (- should be in parenthesis with a number to represent negatives
+
+
 
     }
 }
+
