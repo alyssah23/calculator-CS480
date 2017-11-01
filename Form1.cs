@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Controls;
+using System.Data;
 
 
 namespace TestProject1
@@ -153,7 +153,7 @@ namespace TestProject1
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-           if (System.Text.RegularExpressions.Regex.IsMatch(textBox1.Text, "[^0-9^+^*^^^/^(^)^.^-^=]"))
+           if (System.Text.RegularExpressions.Regex.IsMatch(textBox1.Text, "[^0-9^+^*^^^/^(^)^=^-]"))
            {
                 textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1);
                 if (textBox1.Text.Length != 0)
@@ -164,16 +164,81 @@ namespace TestProject1
            }
            if (textBox1.Text.Contains('='))
            {
-               //call method here to handle operations
+                calculate();    
            }
        
         }
-        //for handling operations....
-            //check number of each parenthisis, if they dont match don't do it
-            //you can't have 2 operations next to each other (- should be in parenthesis with a number to represent negatives
+        public void calculate()
+        {
+            try
+            {
+                textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1);
+                DataTable d = new DataTable();
+                int length = textBox1.Text.Length;
+                if (textBox1.Text.Contains('^'))
+                {
+                    var foundIndexes = new List<int>();
+                    string textboxContents = textBox1.Text;
+                    for (int b = textBox1.Text.IndexOf('^'); b > -1; b = textBox1.Text.IndexOf('^', b + 1))
+                    {
+                        foundIndexes.Add(b);
+                    }
+                    for(int c = 0; c < foundIndexes.Count; c++)
+                    {
+                        int i = foundIndexes.ElementAt(c);
+                        String s = textBox1.Text.Substring((i - 1), 1);
+                        if (s == ")")
+                        {
+                            string before = "";
+                            int j = i - 1;
+                            while (before != "(")
+                            {
+                                j--;
+                                before = textBox1.Text.Substring(j,1);
+                            }
+                            var v = d.Compute(textBox1.Text.Substring(j, i), "");
+                            double expoEval = Math.Pow(Double.Parse(v.ToString()), Double.Parse(textBox1.Text.Substring(i + 1, 1)));
+                            string replace = textBox1.Text.Substring(j, (i+2) - j);
+                            textboxContents = textboxContents.Replace(replace, expoEval.ToString());
 
+                        }
+                        if (int.TryParse(s, out var n))
+                        {
+                            double x = Double.Parse(textBox1.Text.Substring(i + 1, 1));
+                            double y = Double.Parse(textBox1.Text.Substring(i - 1, 1));
+                            double expoEval = Math.Pow(y, x);
+                            string replace = textBox1.Text.Substring(i - 1, 3);
+                            textboxContents = textboxContents.Replace(replace, expoEval.ToString());
+                        }
+                        
+                    }
+                    var w = d.Compute(textboxContents, "");
+                    textBox1.Text = w.ToString();
+                }
+                else
+                {
+                    var v = d.Compute((textBox1.Text), "");
+                    textBox1.Text = v.ToString();
+                }
+            }
+            /*catch (EvaluateException)
+            {
+                MessageBox.Show("This is not a vaid input, please try again.");
 
+            }
+            catch (SyntaxErrorException)
+            {
+                MessageBox.Show("This is not a vaid input, please try again.");
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("This is not a vaid input, please try again.");
+            }*/
+            catch (ArrayTypeMismatchException)
+            {
 
+            }
+        }
     }
 }
 

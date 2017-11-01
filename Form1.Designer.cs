@@ -38,7 +38,6 @@
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button0 = new System.Windows.Forms.Button();
-            this.buttonDecimal = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonSubtract = new System.Windows.Forms.Button();
             this.buttonMultiply = new System.Windows.Forms.Button();
@@ -156,22 +155,11 @@
             this.button0.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F);
             this.button0.Location = new System.Drawing.Point(42, 440);
             this.button0.Name = "button0";
-            this.button0.Size = new System.Drawing.Size(202, 79);
+            this.button0.Size = new System.Drawing.Size(311, 79);
             this.button0.TabIndex = 9;
             this.button0.Text = "0";
             this.button0.UseVisualStyleBackColor = true;
             this.button0.Click += new System.EventHandler(this.button0_Click);
-            // 
-            // buttonDecimal
-            // 
-            this.buttonDecimal.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F);
-            this.buttonDecimal.Location = new System.Drawing.Point(260, 440);
-            this.buttonDecimal.Name = "buttonDecimal";
-            this.buttonDecimal.Size = new System.Drawing.Size(93, 79);
-            this.buttonDecimal.TabIndex = 10;
-            this.buttonDecimal.Text = ".";
-            this.buttonDecimal.UseVisualStyleBackColor = true;
-            this.buttonDecimal.Click += new System.EventHandler(this.buttonDecimal_Click);
             // 
             // buttonAdd
             // 
@@ -298,7 +286,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 769);
+            this.ClientSize = new System.Drawing.Size(513, 741);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.buttonEquals);
             this.Controls.Add(this.buttonCE);
@@ -310,7 +298,6 @@
             this.Controls.Add(this.buttonMultiply);
             this.Controls.Add(this.buttonSubtract);
             this.Controls.Add(this.buttonAdd);
-            this.Controls.Add(this.buttonDecimal);
             this.Controls.Add(this.button0);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
@@ -341,7 +328,6 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button0;
-        private System.Windows.Forms.Button buttonDecimal;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonSubtract;
         private System.Windows.Forms.Button buttonMultiply;
